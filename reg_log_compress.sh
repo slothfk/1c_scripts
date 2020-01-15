@@ -14,15 +14,15 @@
 # Find 1C Enterprise 8 service start script
 INIT_SCRIPT=`ls /etc/init.d/srv1cv8*`
 
-ARCHIVE_PERIOD=`date +%Y%m%d --date="1 month ago"`
-REMOVE_PERIOD=`date +%Y%m%d --date="1 year ago"`
+ARCHIVE_PERIOD=`date +%Y%m%d --date="2 week ago"`
+REMOVE_PERIOD=`date +%Y%m%d --date="2 month ago"`
 
 # Use system 1C Enterprise settings
 . ${INIT_SCRIPT} > /dev/null
 . /etc/sysconfig/${INIT_SCRIPT##*/}
 
 # Get real cluster work directory
-[[ ! ${SRV1CV8_DATA} ]] && SRV1CV8_DATA="/home/${SRV1CV8_USER}/.1cv8/1C/1cv8" && \
+[[ ! ${SRV1CV8_DATA} ]] && SRV1CV8_DATA="$(cat /etc/passwd | grep ${SRV1CV8_USER} | cut -f6 -d:)/.1cv8/1C/1cv8" && \
     [[ -f ${SRV1CV8_DATA}/location.cfg ]] && SRV1CV8_DATA=`cat ${SRV1CV8_DATA}/location.cfg | awk -F"=" '{print $2}'`
 
 echo "INFO: 1C Registration Log compression and removal script started!";
