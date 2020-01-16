@@ -35,7 +35,11 @@ FILES_TO_COMPRESS=`find ${SRV1CV8_DATA} -name *.lgp | sort`;
 
 for CURRENT_FILE in ${FILES_TO_COMPRESS};
 do
-    [[ ${CURRENT_FILE##*/} < ${ARCHIVE_PERIOD} ]] && bzip2 ${CURRENT_FILE} && echo "COMPRESS: ${CURRENT_FILE}";
+    if [[ ${CURRENT_FILE##*/} < ${REMOVE_PERIOD} ]]; then
+        rm -f ${CURRENT_FILE} && echo "DELETE: ${CURRENT_FILE}";
+    elif [[ ${CURRENT_FILE##*/} < ${ARCHIVE_PERIOD} ]];  then
+        bzip2 ${CURRENT_FILE} && echo "COMPRESS: ${CURRENT_FILE}";
+    fi
 done
 
 # TODO: Add -mtime parameter for restrict find result
