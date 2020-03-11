@@ -1,8 +1,8 @@
 #!/bin/bash
 #
-# 1C Enterprise 8.3 Terminate User Sessions via RAC
+# Эксплуатация 1С Предприятия 8.3: Завершение сессий через RAC
 #
-# (c) 2019, Alexey Y. Fedotov
+# (c) 2020, Алексей Ю. Федотов
 #
 # Email: fedotov@kaminsoft.ru
 #

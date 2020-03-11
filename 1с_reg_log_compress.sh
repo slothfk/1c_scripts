@@ -1,13 +1,13 @@
 #!/bin/bash
 #
-# 1C Registration Log Compression and Removal Script
+# Эксплуатация 1С Предприятия 8.3: Сжатие и удаление файлов ЖР
 #
-# (c) 2018, Alexey Y. Fedotov
+# (c) 2020, Алексей Ю. Федотов
 #
-# Email: fedotov@kamin.kaluga.ru
+# Email: fedotov@kaminsoft.ru
 #
 # ======================================================
-# WARNINIG: For old style registration log only!
+# ВНИМАНИЕ: Использовать только для ЖР в старом формате
 # ======================================================
 #
 
