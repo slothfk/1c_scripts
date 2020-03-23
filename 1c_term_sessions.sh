@@ -12,11 +12,12 @@ PATH=${PATH}:$(ls -d /opt/1C/v8*/[xi]* | tail -n1)
 function parse_parameters {
     while [[ $1 ]] ; do
         case $1 in
-        -s) SRV_NAME=$2; shift 2;;
-        -p) SRV_PORT=$2; shift 2;;
-        -l) SESS_LIST=$2; shift 2;;
-        -u) ADM_USER=$2; shift 2;;
-        -w) ADM_PASS=$2; shift 2;;
+        --server|-s) SRV_NAME=$2; shift 2;;
+        --port|-p) SRV_PORT=$2; shift 2;;
+        --list|-l) SESS_LIST=$2; shift 2;;
+        --all|-a) ALL_SESSION=1;;
+        --username|-u) ADM_USER=$2; shift 2;;
+        --password|-w) ADM_PASS=$2; shift 2;;
         *) shift;;
         esac;
     done
