@@ -20,7 +20,7 @@ for NODE_NAME in $( find ./ -maxdepth 1 -type d | sed -re 's/^\.\///; s/(.*)\-[^
 done
 
 # Удаление файлов старше 90 дней
-find ${ARCH_DIR} -mtime +90 -type f -daystart -delete
+find ${ARCH_DIR} -mtime +90 -name *.tgz -type f -daystart -delete
 
 # Удаление пустых каталогов
 find ${ARCH_DIR} -type d -empty -delete
