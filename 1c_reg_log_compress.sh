@@ -22,10 +22,10 @@ source ${INIT_SCRIPT} > /dev/null
 [[ -d /etc/sysconfig ]] && source /etc/sysconfig/${INIT_SCRIPT##*/}
 
 # Get real cluster work directory
-[[ -z ${SRV1CV8_DATA} ]] && SRV1CV8_DATA="$(cat /etc/passwd | grep ${SRV1CV8_USER} | cut -f6 -d:)/.1cv8/1C/1cv8"
+[[ -z ${SRV1CV8_DATA} ]] && SRV1CV8_DATA="$(grep ${SRV1CV8_USER} /etc/passwd | cut -f6 -d:)/.1cv8/1C/1cv8"
 
 # Get real work dir
-[[ -f ${SRV1CV8_DATA}/location.cfg ]] && SRV1CV8_DATA=$(cat ${SRV1CV8_DATA}/location.cfg | awk -F"=" '{print $2}')
+[[ -f ${SRV1CV8_DATA}/location.cfg ]] && SRV1CV8_DATA=$(cut -f2 -d'=' ${SRV1CV8_DATA}/location.cfg )
 
 # TODO: Add -mtime parameter for restrict find result
 FILES_TO_COMPRESS=$(find ${SRV1CV8_DATA} -name '*.lgp' | sort)
