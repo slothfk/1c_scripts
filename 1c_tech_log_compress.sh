@@ -9,18 +9,18 @@
 
 ARCH_DIR="/iRR/archive/tech_logs"
 
-cd ${ARCH_DIR}
+cd ${ARCH_DIR} || exit 1
 
 # Compress and remove log files most then one day oldest per Nodes
-for NODE_NAME in $( find ./ -maxdepth 1 -type d | sed -re 's/^\.\///; s/(.*)\-[^\-]+/\1/' | grep -vPe '^$' | sort | uniq ); do
-    for ARCH_DATE in $(find ./${NODE_NAME}* -mtime +1 -daystart -name *.log -printf "%f\n" |  sed -re "s/(^[0-9]{6}).*/\1/" | sort | uniq); do
-        tar czf ${NODE_NAME}-${ARCH_DATE}.tgz --remove-files $(find ${NODE_NAME}*/ -name ${ARCH_DATE}*.log) > /dev/null
+for NODE_NAME in $( find ./ -maxdepth 1 -type d | sed -re 's/^\.\///; s/(.*)\-[^\-]+/\1/' | grep -vPe '^$' | sort -u ); do
+    for ARCH_DATE in $(find "./${NODE_NAME}*" -mtime +1 -daystart -name '*.log' -printf "%f\n" |  sed -re "s/(^[0-9]{6}).*/\1/" | sort -u); do
+        tar czf ${NODE_NAME}-${ARCH_DATE}.tgz --remove-files $(find ${NODE_NAME}*/ -name "${ARCH_DATE}*.log") > /dev/null
         touch ${NODE_NAME}-${ARCH_DATE}.tgz -t $(date -d "${ARCH_DATE} next day" +%m%d%H%M)
     done
 done
 
 # Удаление файлов старше 30 дней
-find ${ARCH_DIR} -mtime +30 -name "*.tgz" -type f -daystart -delete
+find ${ARCH_DIR} -mtime +30 -name '*.tgz' -type f -daystart -delete
 
 # Удаление пустых каталогов
 find ${ARCH_DIR} -type d -empty -delete

@@ -14,8 +14,8 @@
 # Find 1C Enterprise 8 service start script
 INIT_SCRIPT=$(ls /etc/init.d/srv1cv8*)
 
-ARCHIVE_PERIOD=`date +%Y%m%d --date="2 week ago"`
-REMOVE_PERIOD=`date +%Y%m%d --date="2 month ago"`
+ARCHIVE_PERIOD=$(date +%Y%m%d --date='2 week ago')
+REMOVE_PERIOD=$(date +%Y%m%d --date='2 month ago')
 
 # Use system 1C Enterprise settings
 source ${INIT_SCRIPT} > /dev/null
@@ -28,7 +28,7 @@ source ${INIT_SCRIPT} > /dev/null
 [[ -f ${SRV1CV8_DATA}/location.cfg ]] && SRV1CV8_DATA=$(cat ${SRV1CV8_DATA}/location.cfg | awk -F"=" '{print $2}')
 
 # TODO: Add -mtime parameter for restrict find result
-FILES_TO_COMPRESS=$(find ${SRV1CV8_DATA} -name *.lgp | sort)
+FILES_TO_COMPRESS=$(find ${SRV1CV8_DATA} -name '*.lgp' | sort)
 
 DEL_FILES=0; ARCH_FILES=0
 
@@ -41,7 +41,7 @@ for CURRENT_FILE in ${FILES_TO_COMPRESS}; do
 done
 
 # TODO: Add -mtime parameter for restrict find result
-FILES_TO_REMOVE=$(find ${SRV1CV8_DATA} -name *.bz2 | sort)
+FILES_TO_REMOVE=$(find ${SRV1CV8_DATA} -name '*.bz2' | sort)
 
 for CURRENT_FILE in ${FILES_TO_REMOVE}; do
     [[ ${CURRENT_FILE##*/} < ${REMOVE_PERIOD} ]] && rm -f ${CURRENT_FILE} && (( DEL_FILES+=1 ))
